@@ -124,7 +124,7 @@ public class TS3Query {
 	public boolean doCommand(Command c) {
 		commandList.offer(c);
 		final long start = System.currentTimeMillis();
-		while (!c.isAnswered() && System.currentTimeMillis() - start < 4_000) {
+		while (!c.isAnswered() && System.currentTimeMillis() - start < 16_000) {
 			try {
 				Thread.sleep(50);
 			} catch (final InterruptedException e) {

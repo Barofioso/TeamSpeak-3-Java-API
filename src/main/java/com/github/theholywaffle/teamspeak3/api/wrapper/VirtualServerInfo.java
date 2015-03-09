@@ -201,8 +201,8 @@ public class VirtualServerInfo extends Wrapper {
 		return HostMessageMode.UNKNOWN; // TODO Replace unknown
 	}
 
-	public int getIconId() {
-		return getInt(VirtualServerProperty.VIRTUALSERVER_ICON_ID);
+	public long getIconId() {
+		return getLong(VirtualServerProperty.VIRTUALSERVER_ICON_ID);
 	}
 
 	public String getIp() {

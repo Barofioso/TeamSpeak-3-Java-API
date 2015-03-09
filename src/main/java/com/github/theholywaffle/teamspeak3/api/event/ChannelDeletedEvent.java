@@ -39,8 +39,23 @@ public class ChannelDeletedEvent extends Wrapper implements TS3EventEmitter,TS3E
 	public ChannelDeletedEvent(HashMap<String, String> map){
 		super(map);
 	}
+	/**
+	 * @return Die channelID
+	 */
 	public int getChannelId() {
 		return getInt("cid");
+	}
+	/**
+	 * @return Die ClientID
+	 */
+	public int getInvokerId() {
+		return getInt("invokerid");
+	}
+	/**
+	 * @return Den ClientNamen
+	 */
+	public String getInvokerName() {
+		return get("invokername");
 	}
 	
 	public void fire(TS3Listener listener, HashMap<String, String> map) {

@@ -30,8 +30,7 @@ import java.util.HashMap;
 
 import com.github.theholywaffle.teamspeak3.api.wrapper.Wrapper;
 
-public class ClientMovedEvent extends Wrapper implements TS3Event,
-		TS3EventEmitter {
+public class ClientMovedEvent extends Wrapper implements TS3EventEmitter {
 
 	public ClientMovedEvent() {
 		super(null);

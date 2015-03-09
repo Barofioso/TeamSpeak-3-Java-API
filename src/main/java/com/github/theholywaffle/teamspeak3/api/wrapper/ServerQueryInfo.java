@@ -39,11 +39,17 @@ public class ServerQueryInfo extends Wrapper {
 	public int getChannelId() {
 		return getInt("client_channel_id");
 	}
-
+	/**
+	 * 
+	 * @return Client Database ID
+	 */
 	public int getDatabaseId() {
 		return getInt("client_database_id");
 	}
-
+	/**
+	 * 
+	 * @return Client ID
+	 */
 	public int getId() {
 		return getInt("client_id");
 	}

@@ -638,6 +638,16 @@ public class TS3Api {
 		return null;
 	}
 
+	public Channel getChannelById(int channelId){
+		final List<Channel> channels = this.getChannels();
+		for(Channel c : channels){
+			if(c.getId() == channelId){
+				return c;
+			}
+		}
+		return null;
+	}
+	
 	public ChannelInfo getChannelInfo(int channelId) {
 		final CChannelInfo info = new CChannelInfo(channelId);
 		if (query.doCommand(info)) {
@@ -933,6 +943,24 @@ public class TS3Api {
 		}
 		return null;
 	}
+	
+	public ServerGroup getServerGroupByName(String name){
+		for(ServerGroup sg : this.getServerGroups()){
+			if(sg.getName().equalsIgnoreCase(name)){
+				return sg;
+			}
+		}
+		return null;
+	}
+	
+	public ServerGroup getServerGroupById(int id){
+		for(ServerGroup sg: this.getServerGroups()){
+			if(sg.getId() == id){
+				return sg;
+			}
+		}
+		return null;
+	}
 
 	public List<ServerGroup> getServerGroupsByClientId(int clientDatabaseId) {
 		final CServerGroupsByClientId client = new CServerGroupsByClientId(
@@ -1032,8 +1060,8 @@ public class TS3Api {
 		return false;
 	}
 
-	public void moveChannel(int channelId, int channelTargetId) {
-		moveChannel(channelId, channelTargetId, -1);
+	public boolean moveChannel(int channelId, int channelTargetId) {
+		return moveChannel(channelId, channelTargetId, -1);
 	}
 
 	public boolean moveChannel(int channelId, int channelTargetId, int order) {

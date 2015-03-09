@@ -36,6 +36,10 @@ public class ChannelInfo extends Wrapper {
 		super(map);
 	}
 
+	public int getId(){
+		return getInt(ChannelProperty.CID);
+	}
+	
 	public int getParentChannelId() {
 		return getInt(ChannelProperty.PID);
 	}
