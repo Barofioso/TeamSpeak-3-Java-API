@@ -26,23 +26,25 @@ package com.github.theholywaffle.teamspeak3.commands;
  * #L%
  */
 
-import java.util.HashMap;
-
 import com.github.theholywaffle.teamspeak3.api.ChannelProperty;
 import com.github.theholywaffle.teamspeak3.commands.parameter.KeyValueParam;
 
+import java.util.Map;
+
 public class CChannelEdit extends Command {
 
-	public CChannelEdit(int channelId, HashMap<ChannelProperty, String> options) {
+	public CChannelEdit(int channelId, Map<ChannelProperty, String> options) {
 		super("channeledit");
 		add(new KeyValueParam("cid", channelId));
+
 		if (options != null) {
 			for (final ChannelProperty p : options.keySet()) {
-				if (p.isChangeable()) {
-					add(new KeyValueParam(p.getName(), options.get(p)));
+				if (!p.isChangeable()) {
+					throw new IllegalArgumentException("ChannelProperty " + p.getName() + " is not changeable!");
 				}
+
+				add(new KeyValueParam(p.getName(), options.get(p)));
 			}
 		}
 	}
-
 }

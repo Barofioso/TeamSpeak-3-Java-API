@@ -26,22 +26,24 @@ package com.github.theholywaffle.teamspeak3.commands;
  * #L%
  */
 
-import java.util.HashMap;
-
 import com.github.theholywaffle.teamspeak3.api.ClientProperty;
 import com.github.theholywaffle.teamspeak3.commands.parameter.KeyValueParam;
 
+import java.util.Map;
+
 public class CClientUpdate extends Command {
 
-	public CClientUpdate(HashMap<ClientProperty, String> options) {
+	public CClientUpdate(Map<ClientProperty, String> options) {
 		super("clientupdate");
+
 		if (options != null) {
 			for (final ClientProperty p : options.keySet()) {
-				if (p.isChangeable()) {
-					add(new KeyValueParam(p.getName(), options.get(p)));
+				if (!p.isChangeable()) {
+					throw new IllegalArgumentException("ClientProperty " + p.getName() + " is not changeable!");
 				}
+
+				add(new KeyValueParam(p.getName(), options.get(p)));
 			}
 		}
 	}
-
 }

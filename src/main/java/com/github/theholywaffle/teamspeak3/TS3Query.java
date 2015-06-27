@@ -28,6 +28,7 @@ package com.github.theholywaffle.teamspeak3;
 
 import com.github.theholywaffle.teamspeak3.api.Callback;
 import com.github.theholywaffle.teamspeak3.api.exception.TS3ConnectionFailedException;
+import com.github.theholywaffle.teamspeak3.commands.CQuit;
 import com.github.theholywaffle.teamspeak3.commands.Command;
 import com.github.theholywaffle.teamspeak3.log.LogHandler;
 
@@ -115,12 +116,13 @@ public class TS3Query {
 		return in;
 	}
 
-	public boolean doCommand(final Command c) {
+	public boolean doCommand(Command c) {
+		final Object signal = new Object();
 		final Callback callback = new Callback() {
 			@Override
 			public void handle() {
-				synchronized (c) {
-					c.notifyAll();
+				synchronized (signal) {
+					signal.notifyAll();
 				}
 			}
 		};
@@ -132,8 +134,8 @@ public class TS3Query {
 		boolean interrupted = false;
 		while (!c.isAnswered() && System.currentTimeMillis() < end) {
 			try {
-				synchronized (c) {
-					c.wait(end - System.currentTimeMillis());
+				synchronized (signal) {
+					signal.wait(end - System.currentTimeMillis());
 				}
 			} catch (final InterruptedException e) {
 				interrupted = true;
@@ -167,6 +169,10 @@ public class TS3Query {
 	 * Removes and closes all used resources to the teamspeak server.
 	 */
 	public void exit() {
+		// Send a quit command synchronously
+		// This will guarantee that all previously sent commands have been processed
+		doCommand(new CQuit());
+
 		if (keepAlive != null) {
 			keepAlive.interrupt();
 		}

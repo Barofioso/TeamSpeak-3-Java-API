@@ -26,18 +26,22 @@ package com.github.theholywaffle.teamspeak3.commands;
  * #L%
  */
 
-import java.util.HashMap;
-
 import com.github.theholywaffle.teamspeak3.api.VirtualServerProperty;
 import com.github.theholywaffle.teamspeak3.commands.parameter.KeyValueParam;
 
+import java.util.Map;
+
 public class CServerEdit extends Command {
 
-	public CServerEdit(HashMap<VirtualServerProperty, String> map) {
+	public CServerEdit(Map<VirtualServerProperty, String> map) {
 		super("serveredit");
+
 		for (final VirtualServerProperty p : map.keySet()) {
+			if (!p.isChangeable()) {
+				throw new IllegalArgumentException("VirtualServerProperty " + p.getName() + " is not changeable!");
+			}
+
 			add(new KeyValueParam(p.getName(), map.get(p)));
 		}
 	}
-
 }

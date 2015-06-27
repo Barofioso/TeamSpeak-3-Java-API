@@ -1,5 +1,6 @@
 TeamSpeak 3 Java API
 ====================
+[![Build Status](https://travis-ci.org/TheHolyWaffle/TeamSpeak-3-Java-API.svg)](https://travis-ci.org/TheHolyWaffle/TeamSpeak-3-Java-API) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/TheHolyWaffle/TeamSpeak-3-Java-API?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 An Java 7 implementation of [TeamSpeak's 3 server query API](http://media.teamspeak.com/ts3_literature/TeamSpeak%203%20Server%20Query%20Manual.pdf).
 
@@ -107,7 +108,7 @@ Only use `FloodRate.UNLIMITED` if you are sure that your query account is whitel
 
 ## TODO
 
-* Add Javadoc to [TS3Api](src/main/java/com/github/theholywaffle/teamspeak3/TS3Api.java).
+* Add Javadoc to core API and wrapper classes.
 
 ## Questions or bugs?
 

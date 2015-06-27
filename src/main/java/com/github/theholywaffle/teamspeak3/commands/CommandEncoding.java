@@ -1,10 +1,10 @@
-package com.github.theholywaffle.teamspeak3.api.event;
+package com.github.theholywaffle.teamspeak3.commands;
 
 /*
  * #%L
  * TeamSpeak 3 Java API
  * %%
- * Copyright (C) 2014 Bert De Geyter
+ * Copyright (C) 2015 Bert De Geyter, Roger Baumgartner
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,24 +26,41 @@ package com.github.theholywaffle.teamspeak3.api.event;
  * #L%
  */
 
-import java.util.Map;
+public final class CommandEncoding {
 
-public class ClientMovedEvent extends BaseEvent {
+	private CommandEncoding() {}
 
-	public ClientMovedEvent(Map<String, String> map) {
-		super(map);
+	public static String encode(String str) {
+		str = str.replace("\\", "\\\\");
+
+		str = str.replace(" ", "\\s");
+		str = str.replace("/", "\\/");
+		str = str.replace("|", "\\p");
+		str = str.replace("\b", "\\b");
+		str = str.replace("\f", "\\f");
+		str = str.replace("\n", "\\n");
+		str = str.replace("\r", "\\r");
+		str = str.replace("\t", "\\t");
+		str = str.replace(String.valueOf((char) 7), "\\a");
+		str = str.replace(String.valueOf((char) 11), "\\v");
+
+		return str;
 	}
 
-	public int getClientTargetId() {
-		return getInt("ctid");
-	}
+	public static String decode(String str) {
+		str = str.replace("\\s", " ");
+		str = str.replace("\\/", "/");
+		str = str.replace("\\p", "|");
+		str = str.replace("\\b", "\b");
+		str = str.replace("\\f", "\f");
+		str = str.replace("\\n", "\n");
+		str = str.replace("\\r", "\r");
+		str = str.replace("\\t", "\t");
+		str = str.replace("\\a", String.valueOf((char) 7)); // Bell
+		str = str.replace("\\v", String.valueOf((char) 11)); // Vertical Tab
 
-	public int getClientId() {
-		return getInt("clid");
-	}
+		str = str.replace("\\\\", "\\");
 
-	@Override
-	public void fire(TS3Listener listener) {
-		listener.onClientMoved(this);
+		return str;
 	}
 }
