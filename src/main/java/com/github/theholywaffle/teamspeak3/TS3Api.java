@@ -1251,6 +1251,28 @@ public class TS3Api {
 		}
 		return null; // Not found
 	}
+	
+	/**
+	 * Finds and returns the channel matching the given channelId
+	 * 
+	 * @param channelId
+	 * 		the id of the channel
+	 * 
+	 * @return the found channel or {@code null} if no channel was found
+	 * 
+	 * @see Channel
+	 */
+	public Channel getChannelById(int channelId) {
+		final List<Channel> allChannels = getChannels();
+		if (allChannels == null) return null;
+		
+		for(final Channel channel : allChannels) {
+			if(channel.getId() == channelId){
+				return channel;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Gets a list of channels whose names contain the given search string.
@@ -1437,6 +1459,27 @@ public class TS3Api {
 			}
 			return groups;
 		}
+		return null;
+	}
+	
+	/**
+	 * Gets the channel group by the given channel group id
+	 * 
+	 * @param groupID
+	 * 		the id of the channel group
+	 * 
+	 * @return the found channel group or {@code null} if no group was found
+	 */
+	public ChannelGroup getChannelGroupById(int groupID) {
+		final List<ChannelGroup> channelGroups = this.getChannelGroups();
+		if(channelGroups == null) return null;
+		
+		for(ChannelGroup cg : channelGroups){
+			if(cg.getId() == groupID){
+				return cg;
+			}
+		}
+		
 		return null;
 	}
 
@@ -2110,7 +2153,28 @@ public class TS3Api {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Gets the server group by the given server group id
+	 * 
+	 * @param groupID
+	 * 		the id of the server group
+	 * 
+	 * @return the found server group or {@code null} if no group was found
+	 */
+	public ServerGroup getServerGroupById(int groupID) {
+		final List<ServerGroup> serverGroups = this.getServerGroups();
+		if(serverGroups == null) return null;
+		
+		for(ServerGroup sg : serverGroups){
+			if(sg.getId() == groupID){
+				return sg;
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * Gets a list of all server groups set for a client.
 	 *
@@ -3325,4 +3389,5 @@ public class TS3Api {
 		}
 		return null;
 	}
+
 }
